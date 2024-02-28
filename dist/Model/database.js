@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Visa = exports.Application = exports.User = exports.connectToDatabase = void 0;
+exports.Application = exports.User = exports.connectToDatabase = void 0;
 const mongoose_1 = __importDefault(require("mongoose"));
 require("dotenv/config");
 mongoose_1.default.set('strictQuery', true);
@@ -120,8 +120,7 @@ const applicationSchema = new mongoose_1.default.Schema({
         required: true,
     },
     visaType: {
-        type: mongoose_1.default.Schema.Types.ObjectId,
-        ref: 'VisaType',
+        type: String,
         required: true,
     },
     visaClass: {
@@ -153,15 +152,5 @@ const applicationSchema = new mongoose_1.default.Schema({
         type: Date,
     },
 });
-const visaTypeSchema = new mongoose_1.default.Schema({
-    name: {
-        type: String,
-        required: true,
-    },
-    description: {
-        type: String,
-    },
-});
 exports.User = mongoose_1.default.model('User', userSchema);
 exports.Application = mongoose_1.default.model('Application', applicationSchema);
-exports.Visa = mongoose_1.default.model('Visa', visaTypeSchema);

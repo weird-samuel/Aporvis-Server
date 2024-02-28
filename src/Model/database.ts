@@ -56,7 +56,7 @@ interface UserType extends Document {
 
 interface ApplicationType extends Document {
   applicant: mongoose.Types.ObjectId
-  visaType: mongoose.Types.ObjectId
+  visaType: string
   visaClass: string
   processingCountry: string
   numberOfEntries: number
@@ -64,11 +64,6 @@ interface ApplicationType extends Document {
   referenceNumber: string
   status: 'pending' | 'approved' | 'rejected'
   appointmentDate?: Date
-}
-
-interface VisaType extends Document {
-  name: string
-  description: string
 }
 
 const userSchema = new mongoose.Schema<UserType>({
@@ -150,8 +145,7 @@ const applicationSchema = new mongoose.Schema<ApplicationType>({
     required: true,
   },
   visaType: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'VisaType',
+    type: String,
     required: true,
   },
   visaClass: {
@@ -184,19 +178,8 @@ const applicationSchema = new mongoose.Schema<ApplicationType>({
   },
 })
 
-const visaTypeSchema = new mongoose.Schema<VisaType>({
-  name: {
-    type: String,
-    required: true,
-  },
-  description: {
-    type: String,
-  },
-})
-
 export const User = mongoose.model<UserType>('User', userSchema)
 export const Application = mongoose.model<ApplicationType>(
   'Application',
   applicationSchema
 )
-export const Visa = mongoose.model<VisaType>('Visa', visaTypeSchema)

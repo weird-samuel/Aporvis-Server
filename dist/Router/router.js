@@ -7,6 +7,7 @@ const express_1 = __importDefault(require("express"));
 require("dotenv/config");
 const authMiddleware_1 = __importDefault(require("../Middlewares/authMiddleware"));
 const authController_1 = __importDefault(require("../Controllers/authController"));
+const userController_1 = __importDefault(require("../Controllers/userController"));
 const router = express_1.default.Router();
 router.get('/', (req, res) => {
     res.status(200).json({ message: 'Good' });
@@ -15,4 +16,7 @@ router.post('/user/login', authController_1.default.loginUser);
 router.post('/user/register', authController_1.default.registerUser);
 router.post('/user/changepassword', authMiddleware_1.default.authenticate('jwt', { session: false }), authController_1.default.changeUserPassword);
 router.get('/user/logout', authController_1.default.logoutUser);
+router.patch('/user/updateprofile', authMiddleware_1.default.authenticate('jwt', { session: false }), userController_1.default.addBiodata);
+router.get('/user/dashboard', authMiddleware_1.default.authenticate('jwt', { session: false }), userController_1.default.getDashboard);
+router.post('/user/newapplication', authMiddleware_1.default.authenticate('jwt', { session: false }), userController_1.default.newApplication);
 exports.default = router;
