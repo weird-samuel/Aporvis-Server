@@ -1,0 +1,167 @@
+"use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Visa = exports.Application = exports.User = exports.connectToDatabase = void 0;
+const mongoose_1 = __importDefault(require("mongoose"));
+require("dotenv/config");
+mongoose_1.default.set('strictQuery', true);
+const connectToDatabase = () => __awaiter(void 0, void 0, void 0, function* () {
+    mongoose_1.default
+        .connect(process.env.CONNECTION_STRING, {
+        dbName: 'Aporvis',
+    })
+        .then(() => {
+        console.log('Database Connection Succeeded');
+    })
+        .catch(err => {
+        console.log(`An error occurred connecting to database: ${err}`);
+    });
+});
+exports.connectToDatabase = connectToDatabase;
+mongoose_1.default.connection.on('error', err => {
+    console.log(`An error occurred connecting to database: ${err},\n...reconnecting`);
+    mongoose_1.default
+        .connect(process.env.CONNECTION_STRING, {
+        dbName: 'Aporvis',
+    })
+        .then(() => {
+        console.log('Database Connection Succeeded');
+    })
+        .catch(err => {
+        console.log(`An error occurred connecting to database ${err}`);
+    });
+});
+const userSchema = new mongoose_1.default.Schema({
+    email: {
+        type: String,
+        unique: true,
+    },
+    password: {
+        type: String,
+    },
+    name: {
+        type: String,
+    },
+    image: {
+        type: String,
+        default: null,
+    },
+    nationality: {
+        type: String,
+    },
+    passportNumber: {
+        type: String,
+    },
+    passportType: {
+        type: String,
+    },
+    passportExpiry: {
+        type: Date,
+    },
+    title: {
+        type: String,
+    },
+    firstName: {
+        type: String,
+    },
+    middleName: {
+        type: String,
+    },
+    lastName: {
+        type: String,
+    },
+    dateOfBirth: {
+        type: Date,
+    },
+    placeOfBirth: {
+        type: String,
+    },
+    maritalStatus: {
+        type: String,
+    },
+    phoneNumber: {
+        type: String,
+    },
+    occupation: {
+        type: String,
+    },
+    address: {
+        type: String,
+    },
+    state: {
+        type: String,
+    },
+    postalCode: {
+        type: String,
+    },
+    zipCode: {
+        type: String,
+    },
+    role: {
+        type: String,
+        enum: ['applicant', 'admin'],
+    },
+});
+const applicationSchema = new mongoose_1.default.Schema({
+    applicant: {
+        type: mongoose_1.default.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true,
+    },
+    visaType: {
+        type: mongoose_1.default.Schema.Types.ObjectId,
+        ref: 'VisaType',
+        required: true,
+    },
+    visaClass: {
+        type: String,
+        required: true,
+    },
+    processingCountry: {
+        type: String,
+        required: true,
+    },
+    numberOfEntries: {
+        type: Number,
+        required: true,
+    },
+    mission: {
+        type: String,
+        required: true,
+    },
+    referenceNumber: {
+        type: String,
+        required: true,
+    },
+    status: {
+        type: String,
+        enum: ['pending', 'approved', 'rejected'],
+        default: 'pending',
+    },
+    appointmentDate: {
+        type: Date,
+    },
+});
+const visaTypeSchema = new mongoose_1.default.Schema({
+    name: {
+        type: String,
+        required: true,
+    },
+    description: {
+        type: String,
+    },
+});
+exports.User = mongoose_1.default.model('User', userSchema);
+exports.Application = mongoose_1.default.model('Application', applicationSchema);
+exports.Visa = mongoose_1.default.model('Visa', visaTypeSchema);
