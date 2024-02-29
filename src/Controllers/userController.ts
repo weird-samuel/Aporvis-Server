@@ -166,14 +166,14 @@ const UserController = {
       // Configure your email provider settings here
       service: 'Gmail',
       auth: {
-        user: 'c.shed2000@gmail.com',
+        user: 'aaporvis@gmail.com',
         pass: process.env.AUTH_PASS,
       },
     })
 
     // Configure the email options
     const mailOptions = {
-      from: 'chizaramshed@gmail.com',
+      from: 'aaporvis@gmail.com',
       to: (application.applicant as unknown as UserType).email,
       subject: 'Visa Appointment Schedule',
       text: `Hello, your visa appointment to ${

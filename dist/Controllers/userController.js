@@ -143,12 +143,12 @@ const UserController = {
         const transporter = nodemailer_1.default.createTransport({
             service: 'Gmail',
             auth: {
-                user: 'c.shed2000@gmail.com',
+                user: 'aaporvis@gmail.com',
                 pass: process.env.AUTH_PASS,
             },
         });
         const mailOptions = {
-            from: 'chizaramshed@gmail.com',
+            from: 'aaporvis@gmail.com',
             to: application.applicant.email,
             subject: 'Visa Appointment Schedule',
             text: `Hello, your visa appointment to ${application.processingCountry} has been scheduled for ${(0, helperFunctions_1.formatNormalDate)(appointmentDate)}
