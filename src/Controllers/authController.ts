@@ -1,28 +1,21 @@
 import { Request, Response } from 'express'
 import { hash, compare } from 'bcrypt'
 import jwt from 'jsonwebtoken'
-import { User } from '../Model/database'
+import { User, UserType } from '../Model/database'
 
 const authController = {
-  // isLoggedIn: async (req: Request, res: Response) => {
-  //   if (req.user) {
-  //     const user = (req.user as userType[])[0]
-  //     return res.status(200).json({
-  //       auth: true,
-  //       user: {
-  //         employeeNumber: user.employeeNumber,
-  //         firstName: user.firstName,
-  //         lastName: user.lastName,
-  //         gender: user.gender,
-  //         dateOfBirth: user.dateOfBirth,
-  //         phoneNumber: user.phoneNumber,
-  //         changedPassword: user.changedPassword,
-  //       },
-  //     })
-  //   } else {
-  //     return res.status(401).json({ auth: false })
-  //   }
-  // },
+  isLoggedIn: async (req: Request, res: Response) => {
+    if (req.user) {
+      const user = (req.user as UserType[])[0]
+      user.password = ''
+      return res.status(200).json({
+        auth: true,
+        user,
+      })
+    } else {
+      return res.status(401).json({ auth: false })
+    }
+  },
   registerUser: async (req: Request, res: Response) => {
     const { email, password } = req.body
     const hashedPassword = await hash(password, 10)

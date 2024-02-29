@@ -8,8 +8,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const database_1 = require("../Model/database");
+const nodemailer_1 = __importDefault(require("nodemailer"));
+require("dotenv/config");
+const helperFunctions_1 = require("../Helpers/helperFunctions");
 const UserController = {
     getDashboard: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const { id } = req.query;
@@ -113,6 +119,57 @@ const UserController = {
                 return res
                     .status(200)
                     .json({ message: 'Successfuly Updated User', success: true });
+            }
+            else {
+                return res
+                    .status(400)
+                    .json({ message: 'Bad Request', success: false });
+            }
+        })
+            .catch(error => {
+            return res.status(500).json({ message: error, success: false });
+        });
+    }),
+    sendEmail: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        const { referenceNumber, appointmentDate } = req.body;
+        const application = yield database_1.Application.findOne({
+            referenceNumber: referenceNumber,
+        }).populate({ path: 'applicant', select: 'email' });
+        if (!application) {
+            return res
+                .status(404)
+                .json({ message: 'application not found', success: false });
+        }
+        const transporter = nodemailer_1.default.createTransport({
+            service: 'Gmail',
+            auth: {
+                user: 'c.shed2000@gmail.com',
+                pass: process.env.AUTH_PASS,
+            },
+        });
+        const mailOptions = {
+            from: 'chizaramshed@gmail.com',
+            to: application.applicant.email,
+            subject: 'Visa Appointment Schedule',
+            text: `Hello, your visa appointment to ${application.processingCountry} has been scheduled for ${(0, helperFunctions_1.formatNormalDate)(appointmentDate)}
+      `,
+        };
+        transporter.sendMail(mailOptions, error => {
+            if (error) {
+                return res.status(400).json({ message: 'Failed to send the email.' });
+            }
+            return;
+        });
+        return res.status(200).json({ message: 'Email sent successfully.' });
+    }),
+    deleteApplication: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        const { referenceNumber } = req.query;
+        database_1.Application.findOneAndDelete({ referenceNumber: referenceNumber })
+            .then(response => {
+            if (response) {
+                return res
+                    .status(200)
+                    .json({ message: 'Successfuly Deleted', success: true });
             }
             else {
                 return res

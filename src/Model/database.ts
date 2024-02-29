@@ -29,7 +29,7 @@ mongoose.connection.on('error', err => {
     })
 })
 
-interface UserType extends Document {
+export interface UserType extends Document {
   email: string
   password: string
   name: string
@@ -135,6 +135,7 @@ const userSchema = new mongoose.Schema<UserType>({
   role: {
     type: String,
     enum: ['applicant', 'admin'],
+    default: 'applicant',
   },
 })
 

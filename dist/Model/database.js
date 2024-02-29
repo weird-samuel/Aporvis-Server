@@ -111,6 +111,7 @@ const userSchema = new mongoose_1.default.Schema({
     role: {
         type: String,
         enum: ['applicant', 'admin'],
+        default: 'applicant',
     },
 });
 const applicationSchema = new mongoose_1.default.Schema({

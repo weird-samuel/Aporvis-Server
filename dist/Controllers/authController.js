@@ -16,6 +16,19 @@ const bcrypt_1 = require("bcrypt");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const database_1 = require("../Model/database");
 const authController = {
+    isLoggedIn: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        if (req.user) {
+            const user = req.user[0];
+            user.password = '';
+            return res.status(200).json({
+                auth: true,
+                user,
+            });
+        }
+        else {
+            return res.status(401).json({ auth: false });
+        }
+    }),
     registerUser: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const { email, password } = req.body;
         const hashedPassword = yield (0, bcrypt_1.hash)(password, 10);

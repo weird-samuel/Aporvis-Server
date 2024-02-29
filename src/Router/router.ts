@@ -9,11 +9,11 @@ router.get('/', (req, res) => {
   res.status(200).json({ message: 'Good' })
 })
 
-// router.get(
-//   '/healthworker',
-//   passport.authenticate('jwt', { session: false }),
-//   authController.isLoggedIn
-// )
+router.get(
+  '/user/checkauth',
+  passport.authenticate('jwt', { session: false }),
+  authController.isLoggedIn
+)
 router.post('/user/login', authController.loginUser)
 router.post('/user/register', authController.registerUser)
 router.post(
@@ -33,9 +33,18 @@ router.get(
   UserController.getDashboard
 )
 router.post(
-  '/user/newapplication',
+  '/user/application',
   passport.authenticate('jwt', { session: false }),
   UserController.newApplication
 )
-
+router.delete(
+  '/user/application',
+  passport.authenticate('jwt', { session: false }),
+  UserController.deleteApplication
+)
+router.post(
+  '/user/sendappointment',
+  passport.authenticate('jwt', { session: false }),
+  UserController.sendEmail
+)
 export default router
