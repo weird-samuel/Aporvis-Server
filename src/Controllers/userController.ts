@@ -137,7 +137,7 @@ const UserController = {
         if (response) {
           return res
             .status(200)
-            .json({ message: 'Successfuly Updated', success: true })
+            .json({ message: 'Successfuly Updated User', success: true })
         } else {
           return res
             .status(400)
