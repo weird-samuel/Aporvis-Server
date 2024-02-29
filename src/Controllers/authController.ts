@@ -6,7 +6,7 @@ import { User, UserType } from '../Model/database'
 const authController = {
   isLoggedIn: async (req: Request, res: Response) => {
     if (req.user) {
-      const user = (req.user as UserType[])[0]
+      const user = req.user as UserType
       user.password = ''
       return res.status(200).json({
         auth: true,

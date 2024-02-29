@@ -18,7 +18,7 @@ const database_1 = require("../Model/database");
 const authController = {
     isLoggedIn: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         if (req.user) {
-            const user = req.user[0];
+            const user = req.user;
             user.password = '';
             return res.status(200).json({
                 auth: true,

@@ -21,7 +21,7 @@ passport_1.default.use(new passport_jwt_1.Strategy({
     secretOrKey: process.env.ACCESS_TOKEN_SECRET,
 }, (jwtPayload, done) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const user = yield database_1.User.find({
+        const user = yield database_1.User.findOne({
             id: jwtPayload.id,
         });
         if (user) {

@@ -6,7 +6,7 @@ import { formatNormalDate } from '../Helpers/helperFunctions'
 
 const UserController = {
   getDashboard: async (req: Request, res: Response) => {
-    const { id } = req.query
+    const { id } = req.user as UserType
     try {
       const completeApplications = await Application.find(
         {
@@ -57,7 +57,7 @@ const UserController = {
     }
   },
   addBiodata: async (req: Request, res: Response) => {
-    const { id } = req.query
+    const { id } = req.user as UserType
     const {
       image,
       nationality,
@@ -116,7 +116,7 @@ const UserController = {
       })
   },
   newApplication: async (req: Request, res: Response) => {
-    const { id } = req.query
+    const { id } = req.user as UserType
     const {
       visaType,
       visaClass,

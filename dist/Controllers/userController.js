@@ -18,7 +18,7 @@ require("dotenv/config");
 const helperFunctions_1 = require("../Helpers/helperFunctions");
 const UserController = {
     getDashboard: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-        const { id } = req.query;
+        const { id } = req.user;
         try {
             const completeApplications = yield database_1.Application.find({
                 applicant: id,
@@ -61,7 +61,7 @@ const UserController = {
         }
     }),
     addBiodata: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-        const { id } = req.query;
+        const { id } = req.user;
         const { image, nationality, passportType, title, lastName, firstName, middleName, dateOfBirth, placeOfBirth, maritalStatus, phoneNumber, passportNumber, passportExpiryDate, occupation, address, state, postalCode, zipCode, } = req.body;
         database_1.User.findByIdAndUpdate(id, {
             $set: {
@@ -102,7 +102,7 @@ const UserController = {
         });
     }),
     newApplication: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-        const { id } = req.query;
+        const { id } = req.user;
         const { visaType, visaClass, processingCountry, numberOfEntries, mission, referenceNumber, appointmentDate, } = req.body;
         database_1.Application.create({
             applicant: id,

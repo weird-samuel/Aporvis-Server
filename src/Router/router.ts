@@ -38,21 +38,21 @@ router.get('/user/logout', authController.logoutUser)
 ////////////////////////////////////////////////////////////////
 // Normal User Apis
 
-//API to get the dashboard data for a user. Pass in the user {id} as a query parameter in the url
+//API to get the dashboard data for a user.
 router.get(
   '/user/dashboard',
   passport.authenticate('jwt', { session: false }),
   UserController.getDashboard
 )
 
-//API to update bio data for user profile mainly after registration. Pass in the user {id} as a query parameter in the url then pass the following data in the request body: image, nationality, passportType, title, lastName, firstName, middleName, dateOfBirth, placeOfBirth, maritalStatus, phoneNumber, passportNumber, passportExpiryDate, occupation, address, state, postalCode, zipCode,
+//API to update bio data for user profile mainly after registration. Pass the following data in the request body: image, nationality, passportType, title, lastName, firstName, middleName, dateOfBirth, placeOfBirth, maritalStatus, phoneNumber, passportNumber, passportExpiryDate, occupation, address, state, postalCode, zipCode,
 router.patch(
   '/user/updateprofile',
   passport.authenticate('jwt', { session: false }),
   UserController.addBiodata
 )
 
-//API to create a new application. Pass in the user {id} as a query parameter in the url then pass the following data in the request body: visaType, visaClass, processingCountry, numberOfEntries,  mission, referenceNumber, appointmentDate,
+//API to create a new application. Pass the following data in the request body: visaType, visaClass, processingCountry, numberOfEntries,  mission, referenceNumber, appointmentDate,
 router.post(
   '/user/application',
   passport.authenticate('jwt', { session: false }),
@@ -125,7 +125,7 @@ router.get(
   AdminController.getPendingApplications
 )
 
-//API to perform an action on an application. Either to approve or reject it. pass in {referenceNumber} and {action} as query parameters in the URL. Ensure {action} is either 'approve' or 'reject'.
+//API to perform an action on an application. Either to approve or reject it. pass in {referenceNumber} and {action} as query parameters in the URL. Ensure {action} is either 'approved' or 'rejected'.
 router.patch(
   '/admin/application',
   passport.authenticate('jwt', { session: false }),
