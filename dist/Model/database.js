@@ -151,6 +151,7 @@ const applicationSchema = new mongoose_1.default.Schema({
     },
     appointmentDate: {
         type: Date,
+        default: null,
     },
 });
 exports.User = mongoose_1.default.model('User', userSchema);

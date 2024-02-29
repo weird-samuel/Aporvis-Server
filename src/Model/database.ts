@@ -176,6 +176,7 @@ const applicationSchema = new mongoose.Schema<ApplicationType>({
   },
   appointmentDate: {
     type: Date,
+    default: null,
   },
 })
 
