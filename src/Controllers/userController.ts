@@ -48,7 +48,7 @@ const UserController = {
         success: true,
         pending: pendingApplications,
         rejected: rejectedApplications,
-        approves: completeApplications,
+        approved: completeApplications,
       })
     } catch (error) {
       return res
