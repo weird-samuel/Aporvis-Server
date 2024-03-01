@@ -5,6 +5,7 @@ import { User, UserType } from '../Model/database'
 
 const authController = {
   isLoggedIn: async (req: Request, res: Response) => {
+    console.log(req.user)
     if (req.user) {
       const user = req.user as UserType
       user.password = ''
@@ -52,6 +53,7 @@ const authController = {
       const user = await User.findOne({
         email: (email as string).toLowerCase(),
       })
+      console.log(user)
       if (!user) {
         return res
           .status(404)
@@ -66,7 +68,7 @@ const authController = {
       const accessToken = jwt.sign(
         {
           id: user.id,
-          email: user.email,
+          user: user,
         },
         process.env.ACCESS_TOKEN_SECRET!,
         { expiresIn: '3h' }
@@ -74,10 +76,7 @@ const authController = {
       return res.status(200).json({
         auth: true,
         message: 'Login successful',
-        user: {
-          id: user.id,
-          email: user.email,
-        },
+        user,
         accessToken,
       })
     } catch (error) {

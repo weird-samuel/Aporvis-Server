@@ -11,9 +11,7 @@ passport.use(
     },
     async (jwtPayload, done) => {
       try {
-        const user = await User.findOne({
-          id: jwtPayload.id,
-        })
+        const user = await User.findById(jwtPayload.id)
 
         if (user) {
           return done(null, user)

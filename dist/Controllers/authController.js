@@ -17,6 +17,7 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const database_1 = require("../Model/database");
 const authController = {
     isLoggedIn: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        console.log(req.user);
         if (req.user) {
             const user = req.user;
             user.password = '';
@@ -65,6 +66,7 @@ const authController = {
             const user = yield database_1.User.findOne({
                 email: email.toLowerCase(),
             });
+            console.log(user);
             if (!user) {
                 return res
                     .status(404)
@@ -78,15 +80,12 @@ const authController = {
             }
             const accessToken = jsonwebtoken_1.default.sign({
                 id: user.id,
-                email: user.email,
+                user: user,
             }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '3h' });
             return res.status(200).json({
                 auth: true,
                 message: 'Login successful',
-                user: {
-                    id: user.id,
-                    email: user.email,
-                },
+                user,
                 accessToken,
             });
         }
