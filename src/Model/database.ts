@@ -37,7 +37,7 @@ export interface UserType extends Document {
   nationality: string
   passportNumber: string
   passportType: string
-  passportExpiry: Date
+  passportExpiryDate: Date
   title: string
   firstName: string
   middleName: string
@@ -90,7 +90,7 @@ const userSchema = new mongoose.Schema<UserType>({
   passportType: {
     type: String,
   },
-  passportExpiry: {
+  passportExpiryDate: {
     type: Date,
   },
   title: {
