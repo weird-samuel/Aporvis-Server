@@ -165,7 +165,6 @@ const UserController = {
         numberOfEntries,
         mission,
         referenceNumber,
-        appointmentDate,
       } = req.body
       database_1.Application.create({
         applicant: id,
@@ -175,7 +174,6 @@ const UserController = {
         numberOfEntries,
         mission,
         referenceNumber,
-        appointmentDate,
       })
         .then(response => {
           if (response) {
