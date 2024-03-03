@@ -174,7 +174,7 @@ const UserController = {
       from: 'aaporvis@gmail.com',
       to: (application.applicant as unknown as UserType).email,
       subject: 'Visa Appointment Schedule',
-      text: `Hello, your visa appointment to ${
+      text: `Hello, your visa appointment to Nigeria being processed via ${
         application.processingCountry
       } has been scheduled for ${formatNormalDate(appointmentDate)}
       `,
