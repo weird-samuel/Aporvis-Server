@@ -212,8 +212,9 @@ const UserController = {
         from: 'aaporvis@gmail.com',
         to: application.applicant.email,
         subject: 'Visa Appointment Schedule',
-        text: `Hello, your visa appointment to ${application.processingCountry} has been scheduled for ${(0, helperFunctions_1.formatNormalDate)(appointmentDate)}
-      `,
+        text: `Hello, your visa appointment to Nigeria being processed via ${
+          application.processingCountry
+        } has been scheduled for ${(0, helperFunctions_1.formatNormalDate)(appointmentDate)}. Do well to keep to date`,
       }
       transporter.sendMail(mailOptions, error => {
         if (error) {
