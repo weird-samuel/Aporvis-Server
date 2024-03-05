@@ -53,7 +53,7 @@ const authController = {
         {
           email: (email as string).toLowerCase(),
         },
-        { email: 1, password: 1 }
+        { email: 1, password: 1, role: 1, firstName: 1, lastName: 1 }
       )
       if (!user) {
         return res
@@ -80,6 +80,9 @@ const authController = {
         user: {
           id: user.id,
           email: user.email,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          role: user.role,
         },
         accessToken,
       })

@@ -176,7 +176,9 @@ const UserController = {
       subject: 'Visa Appointment Schedule',
       text: `Hello, your visa appointment to Nigeria being processed via ${
         application.processingCountry
-      } has been scheduled for ${formatNormalDate(appointmentDate)} Do well to keep to date`,
+      } has been scheduled for ${formatNormalDate(
+        appointmentDate
+      )} Do well to keep to date`,
     }
 
     // Send the email

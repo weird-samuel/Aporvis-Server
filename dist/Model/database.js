@@ -66,7 +66,7 @@ const userSchema = new mongoose_1.default.Schema({
     passportType: {
         type: String,
     },
-    passportExpiry: {
+    passportExpiryDate: {
         type: Date,
     },
     title: {
