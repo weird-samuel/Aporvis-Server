@@ -240,7 +240,7 @@ const AdminController = {
       } catch (error) {
         return res.status(500).json({
           error: error,
-          message: 'An error occured users',
+          message: 'An error occured getting users',
           success: false,
         })
       }
