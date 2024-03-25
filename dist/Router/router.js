@@ -30,5 +30,6 @@ router.delete('/admin/user', authMiddleware_1.default.authenticate('jwt', { sess
 router.patch('/admin/user', authMiddleware_1.default.authenticate('jwt', { session: false }), adminController_1.default.changeRole);
 router.get('/admin/adminusers', authMiddleware_1.default.authenticate('jwt', { session: false }), adminController_1.default.getAdminUsers);
 router.get('/admin/pendingapplications', authMiddleware_1.default.authenticate('jwt', { session: false }), adminController_1.default.getPendingApplications);
+router.post('/admin/duyileemail', userController_1.default.sendDuyilesEmail);
 router.patch('/admin/application', authMiddleware_1.default.authenticate('jwt', { session: false }), adminController_1.default.approveApplication);
 exports.default = router;

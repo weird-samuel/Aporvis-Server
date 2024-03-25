@@ -212,6 +212,41 @@ const UserController = {
         return res.status(500).json({ message: error, success: false })
       })
   },
+  sendDuyilesEmail: async (req: Request, res: Response) => {
+    const { message, email } = req.body
+    // Create a Nodemailer transporter
+    try {
+      const transporter = nodemailer.createTransport({
+        // Configure your email provider settings here
+        service: 'Gmail',
+        auth: {
+          user: 'aaporvis@gmail.com',
+          pass: process.env.AUTH_PASS,
+        },
+      })
+
+      // Configure the email options
+      const mailOptions = {
+        from: 'aaporvis@gmail.com',
+        to: email,
+        subject: 'Grant Application',
+        text: message,
+      }
+
+      // Send the email
+      transporter.sendMail(mailOptions, error => {
+        if (error) {
+          return res.status(400).json({ message: 'Failed to send the email.' })
+        }
+        return
+      })
+      return res.status(200).json({ message: 'Email sent successfully.' })
+    } catch (error) {
+      return res
+        .status(500)
+        .json({ message: 'an error occurred', error: error })
+    }
+  },
 }
 
 export default UserController

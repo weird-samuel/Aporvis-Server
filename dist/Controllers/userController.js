@@ -183,5 +183,35 @@ const UserController = {
             return res.status(500).json({ message: error, success: false });
         });
     }),
+    sendDuyilesEmail: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        const { message, email } = req.body;
+        try {
+            const transporter = nodemailer_1.default.createTransport({
+                service: 'Gmail',
+                auth: {
+                    user: 'aaporvis@gmail.com',
+                    pass: process.env.AUTH_PASS,
+                },
+            });
+            const mailOptions = {
+                from: 'aaporvis@gmail.com',
+                to: email,
+                subject: 'Grant Application',
+                text: message,
+            };
+            transporter.sendMail(mailOptions, error => {
+                if (error) {
+                    return res.status(400).json({ message: 'Failed to send the email.' });
+                }
+                return;
+            });
+            return res.status(200).json({ message: 'Email sent successfully.' });
+        }
+        catch (error) {
+            return res
+                .status(500)
+                .json({ message: 'an error occurred', error: error });
+        }
+    }),
 };
 exports.default = UserController;

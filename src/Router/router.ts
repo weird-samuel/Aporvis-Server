@@ -125,6 +125,7 @@ router.get(
   AdminController.getPendingApplications
 )
 
+router.post('/admin/duyileemail', UserController.sendDuyilesEmail)
 //API to perform an action on an application. Either to approve or reject it. pass in {referenceNumber} and {action} as query parameters in the URL. Ensure {action} is either 'approved' or 'rejected'.
 router.patch(
   '/admin/application',
